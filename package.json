@@ -1,0 +1,44 @@
+{
+  "name": "truffle-with-zokrates-othello",
+  "version": "0.0.1",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test",
+    "testrpc": "ganache-cli -l 8500000",
+    "circuit:factorization:build": "DIR=factorization npm run docker:build:dir",
+    "circuit:factorization:test": "TEST=1 DIR=factorization npm run docker:build:dir",
+    "circuit:sha256:build": "DIR=sha256 npm run docker:build:dir",
+    "circuit:sha256:test": "TEST=1 DIR=sha256 npm run docker:build:dir",
+    "circuit:testFor:test": "TEST=1 DIR=testFor npm run docker:build:dir",
+    "docker": "npm run docker:start && npm run docker:build",
+    "docker:start": "docker run -d -it --name zokrates -v $(pwd)/circuits:/home/zokrates/circuits -v $(pwd)/contracts:/home/zokrates/contracts 4000d/zokrates:latest /bin/bash",
+    "docker:stop": "docker stop zokrates && docker rm zokrates",
+    "docker:restart": "npm run docker:stop && npm run docker:start",
+    "docker:test": "docker exec -e TEST=1 -it --workdir /home/zokrates/circuits zokrates /bin/bash build.sh",
+    "docker:build": "docker exec -it --workdir /home/zokrates/circuits zokrates /bin/bash build.sh",
+    "docker:build:dir": "docker exec -it --workdir /home/zokrates/circuits zokrates /bin/bash build.sh $DIR",
+    "docker:console": "docker exec -it --workdir /home/zokrates/circuits zokrates /bin/bash"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "ganache-cli": "^6.7.0",
+    "openzeppelin-test-helpers": "^0.4.3",
+    "truffle": "^5.0.37"
+  },
+  "dependencies": {
+    "bn.js": "^5.0.0",
+    "clovers-reversi": "^1.0.21",
+    "dockerode": "^3.0.1",
+    "lodash": "^4.17.15",
+    "othello-game-logic": "0.0.15"
+  }
+}

@@ -1,0 +1,10 @@
+import "./factorization.code" as factorization
+
+def main() -> (field):
+  field c = 10
+  field a = 2
+  field b = 5
+
+  1 == factorization(c, a, b)
+
+  return 1

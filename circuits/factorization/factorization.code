@@ -1,0 +1,6 @@
+// check c = a * b
+def main(field c, private field a, private field b) -> (field):
+  field d = a * b
+  c == d
+  return 1
+
